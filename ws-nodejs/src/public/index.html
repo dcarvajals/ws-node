@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/css_library/bulma.min.css">
+    <link rel="stylesheet" href="css/css_library/open-iconic-bootstrap.css">
+    <link rel="stylesheet" href="css/css_library/toastr.min.css">
+
+    <script src="js/js_library/jquery.min.js" type="text/javascript"></script>
+    <script src="js/js_library/angular.js" type="text/javascript"></script>
+    <script src="js/js_library/toastr.min.js" type="text/javascript"></script>
+    <script src="js/js_library/sweetalert2.min.js" type="text/javascript"></script>
+    <script src="js/js_library/store2.min.js" type="text/javascript"></script>
+
+    <title>Log In</title>
+    <style>
+        .content {
+            display: grid;
+            width: 400px;
+            height: 600px;
+            margin: auto;
+            margin-top: 1rem;
+            margin-bottom: 1rem
+        }
+
+        .arriba {
+            width: 100%;
+            padding: 20px;
+            background: #FEC807;
+            height: 200px;
+            text-align: center
+        }
+
+        .abajo {
+            width: 100%;
+            padding: 20px;
+            background: white;
+            height: 270px
+        }
+    </style>
+</head>
+<body ng-controller="controllerIndex">
+    <div class="container">
+        <div class="content box">
+            <div class="arriba">
+                <img src="img/cabezera.png" alt="">
+            </div>
+            <div class="abajo">
+                <form name="form_login" ng-submit="login(form_login)">
+                    <div class="field">
+                        <label class="label">Email</label>
+                        <div class="control">
+                            <input name="email" ng-model="email" ng-class="(form_login.email.$invalid && form_login.email.$dirty) ? 
+                          'input is-small is-danger' : 'input is-small'" type="email" placeholder="Email input" required/>
+                        </div>
+                        <p ng-show="form_login.email.$invalid && form_login.email.$dirty" 
+                        class="help is-danger">This email is invalid</p>
+                    </div>
+                    <div class="field">
+                        <label class="label">Password:</label>
+                        <div class="control">
+                            <input name="password" ng-model="password"
+                            ng-class="(form_login.password.$invalid && form_login.password.$dirty) ? 
+                            'input is-small is-danger' : 'input is-small'" placeholder="Password input"
+                            class="input is-small" type="password" required>
+                        </div>
+                        <p ng-show="form_login.password.$invalid && form_login.password.$dirty" 
+                        class="help is-danger">This password is invalid</p>
+                    </div>
+                    <button type="submit" class="button is-rounded is-fullwidth" 
+                    ng-disabled="form_login.$invalid">Log in</button>
+                    <a href="#" style="font-size: 12px"> Register </a>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script src="js/index.js"></script>
+    <script src="js/jsAlertPersonalize.js"></script>
+</body>
+
+</html>

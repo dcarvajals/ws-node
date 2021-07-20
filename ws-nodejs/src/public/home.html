@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+
+    <link rel="stylesheet" href="css/css_library/bulma.min.css">
+    <link rel="stylesheet" href="css/css_library/open-iconic-bootstrap.css">
+    <link rel="stylesheet" href="css/css_library/toastr.min.css">
+    <link rel="stylesheet" href="css/css_library/modal.css">
+
+    <script src="js/js_library/jquery.min.js" type="text/javascript"></script>
+    <script src="js/js_library/angular.js" type="text/javascript"></script>
+    <script src="js/js_library/toastr.min.js" type="text/javascript"></script>
+    <script src="js/js_library/sweetalert2.min.js" type="text/javascript"></script>
+    <script src="js/js_library/store2.min.js" type="text/javascript"></script>
+
+</head>
+
+<body ng-controller="controllerHome">
+
+    <!-- NUEVA TARJETA -->
+    <div class="ventana-modal" id="newCard">
+        <div class="form-modal sombra">
+            <div class="header-modal container">
+                <strong style="color: white"> Nueva tarjeta </strong>
+                <img ng-click="closeSolicitud()" alt="" class="cerrar" src="resources/img/closeForm.png">
+            </div>
+            <div class="footer-modal container">
+                <div style="padding: 10px">
+
+                    <article class="message is-success is-small">
+                        <div class="message-body">
+                            Especifica los datos de la nueva tarjeta de crédito/débito.
+                        </div>
+                    </article>
+                    <form name="formNewCard" ng-submit="saveCard(formNewCard)">
+                        <div class="field">
+                            <label class="label is-small">Numero de tarjeta:</label>
+                            <div class="control">
+                                <input id="cardNumber" name="card_number" ng-model="card_number" 
+                                ng-class="(formNewCard.card_number.$invalid && formNewCard.card_number.$dirty) ? 
+                                'input is-small is-danger' : 'input is-small'" placeholder="Número de tarjeta"
+                                required />
+                            </div>
+                            <p ng-show="formNewCard.card_number.$invalid && formNewCard.card_number.$dirty"
+                            class="help is-danger">Ingresa un numero de tarjeta.</p>
+                        </div>
+
+                        <div class="field">
+                            <label class="label is-small">CSV:</label>
+                            <div class="control">
+                                <input id="csvCard" name="card_csv" ng-model="card_csv" 
+                                ng-class="(formNewCard.card_csv.$invalid && formNewCard.card_csv.$dirty) ? 
+                                'input is-small is-danger' : 'input is-small'" placeholder="Código unico"
+                                    required />
+                            </div>
+                            <p  ng-show="formNewCard.csvCard.$invalid && formNewCard.csvCard.$dirty" 
+                            class="help is-danger">Ingresa el código único.</p>
+                        </div>
+
+                        <div class="field">
+                            <label class="label is-small">Fecha de expiración:</label>
+                            <div class="control">
+                                <input id="dateCard" name="date_expirate" 
+                                ng-model="date_expirate" 
+                                ng-class="(formNewCard.date_expirate.$invalid && formNewCard.date_expirate.$dirty) ? 
+                                'input is-small is-danger' : 'input is-small'" placeholder="Fecha de expiracion de la tarjeta"
+                                    required />
+                            </div>
+                            <p  ng-show="formNewCard.date_expirate.$invalid && formNewCard.date_expirate.$dirty"  
+                            class="help is-danger">Ingresa una fecha válida de expiración.</p>
+                        </div>
+
+                        <div class="field">
+                            <label class="label is-small">Direccion:</label>
+                            <div class="control">
+                                <input name="pddirection" ng-model="pddirection" class="input is-small" placeholder="Dirección input"/>
+                            </div>
+                            <p class="help">Campo obligatorio.</p>
+                        </div>
+
+                        <div style="text-align: center">
+                            <button type="submit" ng-disabled="formNewCard.$invalid"
+                            class="button is-primary is-small is-rounded"> Guardar
+                                Tarjeta </button>
+                            <button type="button" ng-click="closeTarjeta()" class="button is-danger is-small is-rounded"> Cancelar
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container is-max-desktop" style="height: 100vh">
+        <div style="padding: 20px 0px 5px 0px; background: white; display: flex">
+            <div style="display: flex;margin: auto">
+                <figure class="image is-24x24">
+                    <img src="resources/img/logo.png" alt="">
+                </figure>
+                <strong class="title is-5 tituloApp">Tarjetas de Crédito</strong>
+            </div>
+        </div>
+        <div style=" background: white; padding: 15px 20px 25px 20px">
+            <button class="button is-link is-light is-small" style="float: right; margin-top: 0.9rem"
+                ng-click="closeSession()">Cerrar Sesion</button>
+            <div style="display: flex;margin: auto">
+                <figure class="image is-48x48">
+                    <button class="button is-large ">
+                        <span class="icon is-small">
+                            {{datosUsuaio.names_user[0]}}
+                        </span>
+                    </button>
+                </figure>
+                <div style="display: block; line-height: 1rem; height: 40px; margin-top: 0.74rem; margin-left: 1.5rem;">
+                    <strong class="">Bienvenido {{datosUsuaio.names_user}}</strong> <br>
+                    <span style="font-size: 12px">{{datosUsuaio.email_user}}</span>
+                </div>
+            </div>
+        </div>
+        <div style="padding: 20px">
+            <button id="nuevaTarjeta" class="button is-link is-warning is-small">Nueva tarjeta</button>
+            <table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth mt-4 is-small">
+                <thead>
+                    <tr>
+                        <th>Code</th>
+                        <th>Tipo de documento</th>
+                        <th>Numero de tarjeta</th>
+                        <th>CSV</th>
+                        <th>Fecha de expiración</th>
+                        <th>Dirección</th>
+                        <th>Opciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="domCards in cardUsuario">
+                        <th>{{domCards.pdid}}</th>
+                        <td>{{domCards.pddocumenttype}}</td>
+                        <td>{{domCards.pdcard}}</td>
+                        <td>{{domCards.pdcsv}}</td>
+                        <td>{{domCards.pdexpiredate}}</td>
+                        <td>{{domCards.pddirection}}</td>
+                        <td>
+                            <button id="nuevaTarjeta" ng-click="deleteCard(domCards.pdid)"
+                            class="button is-link is-danger is-small">Eliminar</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <script src="js/js_library/jquery.payform.min.js" type="text/javascript"></script>
+    <script src="js/js_library/payform.min.js" type="text/javascript"></script>
+
+    <script src="js/home.js"></script>
+    <script src="js/jsAlertPersonalize.js"></script>
+</body>
+
+</html>

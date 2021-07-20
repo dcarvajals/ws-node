@@ -1,0 +1,108 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 04-abr-2021, 21:25:49
+    Author     : Dúval Carvajal S.
+*/
+
+/* modal */
+.ventana-modal{
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    background-color:rgba(0,0,0,0.5);
+    color: black;
+    z-index: 1;
+    top: 0px;
+    left: 0px;
+    display: none;
+    border-radius: 5px;
+    font-size: 12px !important;
+}
+
+.ventana-modal .form-modal
+{
+    width: 320px;
+    height: 520px;
+    background: white;
+    top: 50%;
+    left: 50%;
+    position: absolute;
+    margin-left: -160px;
+    margin-top: -260px;
+    border-radius: 5px
+}
+.ventana-modal .form-modal .header-modal
+{
+    width: 320px;
+    height: 30px;
+    background: #00838F;
+    color: white;
+    display: flex;
+    align-items: center;
+    font-size: 12px;
+    border-radius: 5px 5px 0px 0px;
+    padding: 15px;
+}
+
+.ventana-modal .form-modal .header-modal .cerrar
+{
+    cursor: pointer;
+    margin-left: 280px;
+    position: absolute
+}
+
+.ventana-modal .form-modal .footer-modal{
+    height: 480px !important;
+    overflow: auto !important;
+} 
+
+.sombra{
+    -webkit-box-shadow: 2px 3px 19px 0px rgba(0,0,0,0.75);
+    -moz-box-shadow: 2px 3px 19px 0px rgba(0,0,0,0.75);
+    box-shadow: 2px 3px 19px 0px rgba(0,0,0,0.75);
+    transition:background 0.5s,color,0.5s;
+}
+
+@media screen and (min-width:900px){ 
+    .ventana-modal .form-modal
+    {
+        width: 500px;
+        height: 520px;
+        background: white;
+        top: 50%;
+        left: 50%;
+        position: absolute;
+        margin-left: -250px;
+        margin-top: -260px;
+        border-radius: 5px;
+    }
+    .ventana-modal .form-modal .header-modal
+    {
+        width: 500px;
+        height: 30px;
+        background: #00838F;
+        color: white;
+        display: flex;
+        align-items: center;
+        font-size: 12px;
+        border-radius: 5px 5px 0px 0px;
+        padding: 15px;
+    }
+
+    .ventana-modal .form-modal .header-modal .cerrar
+    {
+        cursor: pointer;
+        margin-left: 460px;
+        position: absolute
+    }
+
+    .ventana-modal .form-modal .footer-modal{
+        height: 480px !important;
+        overflow: auto !important;
+    }
+}
+
